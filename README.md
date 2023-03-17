@@ -5,8 +5,7 @@
 <div align="center">
 
 
-  <h1 align="center">Weakly Supervised Variational Auto-Encoder for Anomaly
-Detection </h1>
+  <h1 align="center">Weakly Supervised Variational Auto-Encoder for Anomaly Detection </h1>
 
 
 </div>
@@ -20,13 +19,25 @@ Detection </h1>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#demo">Demo</a></li>
+        <li><a href="#visualization">Visualization</a></li>
+      </ul>
+      <ul>
+        <li><a href="#dataset-info">Dataset Info</a></li>
       </ul>
     </li>
     <li>
-      <a href="#documentation">Documentation</a>
+      <a href="#methodology">Methodology</a>
       <ul>
-        <li><a href="#report">Report</a></li>
+        <li><a href="#baseline-approach">Baseline Approach</a></li>
+      </ul>
+      <ul>
+        <li><a href="#multi-task-vae">Multi task VAE</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#results">Results</a>
+      <ul>
+        <li><a href="#report-and-presentation">Report and Presentation</a></li>
       </ul>
     </li>
     <li>
@@ -64,29 +75,50 @@ Summary of tasks achieved:
 
 ### Visualization
 
+
+
 <div align="center">
-
-
-  <h4 align="center"> Explorer and Follower working (X16 Speed)</h4>
-
-
+  <h4 align="center"> Ground Truth (GT) labelled frames</h4>
 </div>
+<p align="center">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/supp_1.PNG?raw=true" width=80% alt="frames">
 
-https://user-images.githubusercontent.com/90359587/224387441-d45e0f85-1992-43dc-be13-360b4ef2d11c.mp4
+
+<div align="center">
+  <h4 align="center"> Ground truth vs Predicted Anomaly score (GT score either 0 or 1)</h4>
+</div>
+<p align="center">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/supp_plot.PNG?raw=true" width=65% alt="sup_plot">
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Dataset Info
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- Document and Reports -->
-## Documentation
+<!-- Methodology -->
+## Methodology
 
 The documentation for this project can be found here.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Baseline Approach
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Multi task VAE
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-### Report
+
+<!-- Results and report -->
+## Results
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Report and Presentation
 
 Detailed decription for this project can be found in this [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/9MUCtm4vwkQ)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -99,41 +131,15 @@ These are the instructions to get started on the project.
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
-* atleast C++17
-* OS - Linux (tested)
 
 
 ### Installation
 
-Installing the micromouse simulator and running the code.
-
 1. Make directory
    ```sh
-   mkdir ~/RWA2_simulator
+  
    ```
 2. Clone the repos
-   ```sh
-   cd ∼ /RWA2_simulator
-   ```
-   ```sh
-   git clone https://github.com/mackorone/mms.git
-   ```
-   ```sh
-   git clone https://github.com/micromouseonline/mazefiles.git
-   ```
-   ```sh
-   git clone https://github.com/KACHAPPILLY2021/maze_solving_algorithm.git
-   ```
-3. Compile Simulator
-   ```sh
-   sudo apt-get install qt5-default
-   ```
-   ```sh
-   cd mms/src
-   ```
-   ```sh
-   qmake && make
-   ```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -143,26 +149,7 @@ Installing the micromouse simulator and running the code.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-How to start simulator and use this DFS code in it.
-1. Start simulator
-   ```sh
-   cd ∼ /RWA2_simulator/mms/bin
-   ```
-   ```sh
-   ./mms
-   ```
-2. Choose any maze type and Click on the + button as shown in figure.
 
-3. **Directory**: Click Browse and navigate to 'maze_solving_algorithm'
-4. Enter **Build command** as:
-   ```sh
-   g++ src/main.cpp src/mouse.cpp src/node.cpp src/api.cpp
-   ```
-5. Enter **Run Command** as :
-  ```sh
-  ./a.out
-  ```
-6. Then Press **Build**, followed by **RUN** under the **Controls** Section
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -170,7 +157,9 @@ How to start simulator and use this DFS code in it.
 <!-- CONTRIBUTORS -->
 ## Contributors
 
-Here are the
+- [Jeffin Johny]
+- [Pin-Hao Huang]
+- [Po-Lun Chen]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
