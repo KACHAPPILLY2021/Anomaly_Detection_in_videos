@@ -61,20 +61,19 @@
 
 
 
-Implemented Depth First Search algorithm using Object Oriented Programming in C++ and visualized its output using Micromouse simulator.
+The goal for Video anomaly detection (VAD) is to identify abnormal activities in a video sequence, more specifically, to make frame-level predictions indicating whether the frame is normal or not.  In this project, the focus was on the ```weakly-supervised``` setting, where only video-level annotations are provided. A ```Multi-Task Variational Auto-Encoder``` was designed to generate pseudo normal and abnormal video features which can be built on top of any existing frameworks.
 
 Summary of tasks achieved:
-* Implemented DFS using a representation of the maze(mouse has no prior knowledge of walls except the boundaries.)
-* Generated path from current position to goal using the representation of the maze.
-* Moved the mouse using API interface commands and updated the walls as detected.
-* The robot halted when the mouse hit a wall, and DFS was employed to recalculate the path using prior wall data.
-* The described steps were repeated until the goal position was achieved.
+* Proposed a generative approach to **generate pseudo video representations** using a Multi-Task Variational Auto-Encoder.
+* Leveraged the shared encoder architecture to generate pseudo video features that came from different distributions while preserving the **temporal consistency** in the original videos.
+* Showed that generated pseudo video features can **improve the performance** of a model, even if it's a simple network with only MLPs.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Visualization
 
+The anomaly in this example is caused by a rickshaw passing through a pedestrian-only zone. The ground truth anomaly scores and the model's high predicted abnormal scores overlap significantly, indicating strong performance.
 
 
 <div align="center">
@@ -95,6 +94,12 @@ Summary of tasks achieved:
 
 ### Dataset Info
 
+* [ShanghaiTech](https://svip-lab.github.io/dataset/campus_dataset.html) : Medium-scale dataset containing 13 scenes with complex light conditions and camera angles.  The anomalies in this
+dataset are caused by sudden motion, such as chasing and brawling.
+* [UCF-Crime](https://www.crcv.ucf.edu/projects/real-world/) : Large-scale dataset with over 1900 untrimmed videos. The background in UCF-Crime is not
+static, unlike what is found in Shanghai dataset. The anomalies comprise 13 different classes like Abuse, Arrest,
+Arson, Shooting, Stealing, Shoplifting.. 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -102,25 +107,82 @@ Summary of tasks achieved:
 <!-- Methodology -->
 ## Methodology
 
-The documentation for this project can be found here.
+* The input video is divided into snippet-level video sequences, each containing 16 consecutive frames. 
+* The snippet-level features are then extracted from the video data using a pre-trained Inflated 3D Convolution (I3D) architecture, following the methodology commonly adopted in recent literature.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Baseline Approach
+
+1. Consists of 4 fully connected layers. 
+2. Predict the abnormal score given each snippet feature.
+3. For each video, obtain the top-3 snippet scores and average them. 
+4. Supervised using the cross-entropy loss between the score obtained above and the video label. (0 for **normal** and 1 for **abnormal**).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ### Multi task VAE
+
+*  First, a snippet feature is classified as normal or abnormal. (For normal videos we can ignore
+this step). Then, reconstruct normal features using normal
+decoder and abnormal features using abnormal decoder.
+*  The objective is to minimize the **reconstruction loss**, and the **Kulback-Leibler divergence** between the predicted distribution and the standard deviation.
+
+
+<div align="center">
+  <h4 align="center"> Architecture of Multi-task VAE with shared encoder</h4>
+</div>
+<p align="center">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/train.PNG?raw=true" width=40% alt="frames">
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+* The process of generating pseudo normal/abnormal videos representations. To generate pseudo abnormal videos, T /2 snippet features are sampled
+from a normal video and fed to the Multi-task VAE with the abnormal decoder to generate abnormal pseudo features.
+*  To generate pseudo normal videos, the entire abnormal video features are fed to the Multi-task VAE with
+the normal decoder to generate normal pseudo features.
+* ADD TABLE
 
 
 <!-- Results and report -->
 ## Results
+
+Our proposed method can be built on top of any existing frameworks. To show this, we tried to reproduce
+the Robust Temporal Feature Magnitude (RTFM) framework by using their publicly available
+[source code](https://github.com/tianyu0207/RTFM).
+
+<div align="center">
+  <h4 align="center"> Results on ShanghaiTech dataset</h4>
+</div>
+
+<div align="center">
+
+Method | Feature | AUC (%)
+--- | :---: | ---: | 
+Baseline | I3D | 92.62 
+Baseline + Multi-Task VAE | I3D | 94.21 (+1.59) 
+RTFM | I3D | 95.86 
+RTFM + Multi-Task VAE | I3D | 96.85 (+0.99) 
+
+</div>
+
+<div align="center">
+  <h4 align="center"> ROC curves of baseline and RTFM, and its variants</h4>
+</div>
+
+<div align="center">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/roc.png?raw=true" width=40% alt="frames">
+</div>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 
 ### Report and Presentation
 
-Detailed decription for this project can be found in this [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/9MUCtm4vwkQ)
+* Detailed report for this project can be found in this [here]().
+* To check out presentation video. [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/SjDJAVIiurs)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
