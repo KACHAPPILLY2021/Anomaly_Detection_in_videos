@@ -137,11 +137,14 @@ decoder and abnormal features using abnormal decoder.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-* The process of generating pseudo normal/abnormal videos representations. To generate pseudo abnormal videos, T /2 snippet features are sampled
+* To generate pseudo abnormal videos, T/2 snippet features are sampled
 from a normal video and fed to the Multi-task VAE with the abnormal decoder to generate abnormal pseudo features.
 *  To generate pseudo normal videos, the entire abnormal video features are fed to the Multi-task VAE with
 the normal decoder to generate normal pseudo features.
-* ADD TABLE
+
+Generate Pseudo Normal | Generate Pseudo Abnormal 
+--- | --- 
+Baseline | I3D 
 
 
 <!-- Results and report -->
