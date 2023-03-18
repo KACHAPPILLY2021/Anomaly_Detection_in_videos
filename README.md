@@ -135,16 +135,17 @@ decoder and abnormal features using abnormal decoder.
 <p align="center">
 <img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/train.PNG?raw=true" width=60% alt="encode">
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 * To generate pseudo abnormal videos, T/2 snippet features are sampled
 from a normal video and fed to the Multi-task VAE with the abnormal decoder to generate abnormal pseudo features.
 *  To generate pseudo normal videos, the entire abnormal video features are fed to the Multi-task VAE with
 the normal decoder to generate normal pseudo features.
 
-Generate Pseudo Normal | Generate Pseudo Abnormal 
+Generate Pseudo Abnormal | Generate Pseudo Normal 
 --- | --- 
 <img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/normal.PNG?raw=true" width=100% alt="normal"> | <img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/abnormal.PNG?raw=true" width=100% alt="abnormal">
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- Results and report -->
@@ -174,7 +175,7 @@ RTFM + Multi-Task VAE | I3D | 96.85 (+0.99)
 </div>
 
 <div align="center">
-<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/proper_roc.PNG?raw=true" width=60% alt="roc">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/proper_roc.PNG?raw=true" width=50% alt="roc">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -183,7 +184,8 @@ RTFM + Multi-Task VAE | I3D | 96.85 (+0.99)
 
 ### Report and Presentation
 
-* Detailed report for this project can be found in this [here](https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/Anomaly_detection_report.pdf).
+* Detailed report for this project and additional results can be found [here](https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/Anomaly_detection_report.pdf).
+* Supplementary material can be accessed [here](https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/Supplementary_Material.pdf).
 * To check out presentation video. [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/SjDJAVIiurs)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -222,8 +224,8 @@ To get a local copy up and running follow these simple steps.
 <!-- CONTRIBUTORS -->
 ## Contributors
 
-- [Jeffin Johny]
-- [Pin-Hao Huang]
+- [Jeffin Johny](https://github.com/KACHAPPILLY2021)
+- [Pin-Hao Huang](https://github.com/haogerhuang)
 - [Po-Lun Chen]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
