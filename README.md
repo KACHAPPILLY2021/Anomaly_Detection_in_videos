@@ -133,7 +133,7 @@ decoder and abnormal features using abnormal decoder.
   <h4 align="center"> Architecture of Multi-task VAE with shared encoder</h4>
 </div>
 <p align="center">
-<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/train.PNG?raw=true" width=40% alt="frames">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/train.PNG?raw=true" width=60% alt="encode">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -144,7 +144,7 @@ the normal decoder to generate normal pseudo features.
 
 Generate Pseudo Normal | Generate Pseudo Abnormal 
 --- | --- 
-Baseline | I3D 
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/normal.PNG?raw=true" width=100% alt="normal"> | <img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/abnormal.PNG?raw=true" width=100% alt="abnormal">
 
 
 <!-- Results and report -->
@@ -174,7 +174,7 @@ RTFM + Multi-Task VAE | I3D | 96.85 (+0.99)
 </div>
 
 <div align="center">
-<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/roc.png?raw=true" width=40% alt="frames">
+<img src="https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/images/proper_roc.PNG?raw=true" width=60% alt="roc">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -183,7 +183,7 @@ RTFM + Multi-Task VAE | I3D | 96.85 (+0.99)
 
 ### Report and Presentation
 
-* Detailed report for this project can be found in this [here]().
+* Detailed report for this project can be found in this [here](https://github.com/KACHAPPILLY2021/Anomaly_Detection_in_videos/blob/main/Anomaly_detection_report.pdf).
 * To check out presentation video. [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/SjDJAVIiurs)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
