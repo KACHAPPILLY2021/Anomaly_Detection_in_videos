@@ -30,6 +30,7 @@ def update_lr(optim, epoch, lr):
 def train(model, optimizer, train_dataloader, val_dataloader, total_epoch):
     best_score = 0.0
     best_res = None
+    best_model = None
     
     for epoch in range(total_epoch):
       ttl_loss = 0
@@ -91,10 +92,10 @@ def train(model, optimizer, train_dataloader, val_dataloader, total_epoch):
       if score > best_score:
         best_score = score
         best_res = res
-        # torch.save(model.cpu().state_dict(), 'models/best_rtfm.pth')
+        best_model = model.cpu().state_dict()
         model = model.cuda()
     
-    return best_res
+    return best_res, best_model
 
 
 
@@ -106,17 +107,31 @@ augment_type = 0
 
 #augment_path = './exps/{}_sVAE_{}/augment'.format(dataset_name, augment_type)
 
-# Put your augmentation path here
-augment_path = ""
+# Please specify your project root path
+proj_root = ''
+i3d_pth = os.path.join(proj_root, 'dataset', dataset_name, 'i3d')
+meta_pth = os.path.join(proj_root, 'dataset', dataset_name)
 
-train_dataset = Dataset_v2('./{}_i3d'.format(dataset_name), 
-                          './S3R/data/{}'.format(dataset_name), 
-                          split='all', transform=True, augment_pth=augment_path)
+# Specify your experiment name
+exp_name = ''
+exp_pth = os.path.join(proj_root, 'exp', exp_name)
+if not os.path.isdir(exp_pth):
+    os.mkdir(exp_pth)
+
+# Your path to the generated psuedo features
+augment_pth = os.path.join(proj_root, 'dataset', 'augment')
 
 
-val_dataset = Dataset_v2('./{}_i3d'.format(dataset_name),
-                      './S3R/data/{}'.format(dataset_name), 'all',
-                      '{}_ground_truth.testing.json'.format(dataset_name), 'test')
+
+train_dataset = Dataset_v2(i3d_pth, 
+                           meta_pth, 
+                           split='all', transform=True, augment_pth=augment_pth)
+ 
+
+
+val_dataset = Dataset_v2(i3d_pth,
+                         meta_pth, 'all',
+                         '{}_ground_truth.testing.json'.format(dataset_name), 'test')
 
 
 #model_type = 'RTFM'
@@ -146,10 +161,11 @@ model = model.cuda()
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
 
-best_res = train(model, optimizer, train_dataloader, val_dataloader, total_epoch)
+best_res, best_model = train(model, optimizer, train_dataloader, val_dataloader, total_epoch)
 
 print('Best Score', best_res['score'])
 
-with open('Best_res_{}_aug{}.json'.format(model_type, augment_type), 'w') as f:
+with open(os.path.join(exp_pth, 'best_res.json'), 'w') as f:
     json.dump(best_res, f)
 
+torch.save(best_model, os.path.join(exp_pth, 'best_ckpt.pth'))
