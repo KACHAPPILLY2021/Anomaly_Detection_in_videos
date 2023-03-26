@@ -16,23 +16,27 @@ split = 'all'
 
 #dataset_name = 'ucf-crime'
 dataset_name = 'shanghaitech'
+assert dataset_name in ['shanghaitech', 'ucf-crime']
 
+dataset_root = ''
 
 abnormal_res_dict = None
-if dataset_name == 'ucf-crime':
-    with open('ucf-crime_i3d/pred-ucf.json') as f:
-        abnormal_res_dict = json.load(f)
-else:
-    with open('shanghaitech_i3d/pred-sh.json') as f:
-        abnormal_res_dict = json.load(f)
+with open(os.path.join(dataset_root, '{0}/pred-{0}.json'.format(dataset_name))) as f:
+    abnormal_res_dict = json.load(f)
 
+# Please specify your project root path
+proj_root = ''
+i3d_pth = os.path.join(proj_root, 'dataset', dataset_name, 'i3d')
+meta_pth = os.path.join(proj_root, 'dataset', dataset_name)
 
-
-
-train_dataset = Dataset_v2('./{}_i3d'.format(dataset_name),
-                           './S3R/data/{}'.format(dataset_name),
+train_dataset = Dataset_v2(i3d_pth,
+                           meta_pth,
                            split=split, pseudo_score_dict=abnormal_res_dict)
 train_dataloader = DataLoader(train_dataset, batch_size=1, shuffle=True)
+
+
+save_dir = "" # Put your path to save the configurations and checkpoints
+os.mkdir(save_dir)
 
 
 bs = 1024
@@ -40,9 +44,11 @@ lr = 1e-4
 ttl_epoch = 100
 kld_w= 0.00025
 
+
 hidden_dims = [1024,512]
 latent_dim = 256
 
+# Save the configurations of your model
 config = dict(hidden_dims=hidden_dims, latent_dim=latent_dim)
 with open(os.path.join(save_dir, 'config.json'), 'w') as f:
     json.dump(config, f)
@@ -53,15 +59,6 @@ scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.95)
 
 
 start_epoch = 0
-
-cnt = 0
-while(os.path.isdir('exps/{}_sVAE_{}'.format(dataset_name, cnt))):
-    cnt += 1
-
-save_dir = 'exps/{}_sVAE_{}'.format(dataset_name, cnt)
-os.mkdir(save_dir)
-
-
 model = model.cuda()
 
 abnormal_res_dict = None

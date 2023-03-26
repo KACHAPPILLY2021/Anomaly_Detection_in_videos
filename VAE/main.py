@@ -97,75 +97,77 @@ def train(model, optimizer, train_dataloader, val_dataloader, total_epoch):
     
     return best_res, best_model
 
+if __name__ == '__main__':
+    
+    #dataset_name = 'ucf-crime'
+    dataset_name = 'shanghaitech'
+    assert dataset_name in ['shanghaitech', 'ucf-crime']
+    
+    augment_type = 0
+    
+    # Please specify your project root path
+    proj_root = ''
+    i3d_pth = os.path.join(proj_root, 'dataset', dataset_name, 'i3d')
+    meta_pth = os.path.join(proj_root, 'dataset', dataset_name)
+    
+    # Specify your experiment name
+    exp_name = ''
+    exp_pth = os.path.join(proj_root, 'exp', exp_name)
+    if not os.path.isdir(exp_pth):
+        os.mkdir(exp_pth)
+    
+    # Your path to the generated psuedo features
+    # Comment out this line if you want to add augmentation using psuedo features
+    #augment_pth = os.path.join(proj_root, 'dataset', 'augment')
+    
+    
+    
+    train_dataset = Dataset_v2(i3d_pth, 
+                               meta_pth, 
+                               split='all', transform=True, augment_pth=augment_pth)
+     
+    
+    
+    val_dataset = Dataset_v2(i3d_pth,
+                             meta_pth, 'all',
+                             '{}_ground_truth.testing.json'.format(dataset_name), 'test')
+    
+    
+    #model_type = 'RTFM'
+    model_type = 'baseline'
+    assert model_type in ['baseline', 'RTFM']
+    
+    
+    train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=0)
+    val_dataloader = DataLoader(val_dataset, batch_size=1, shuffle=False)
+    
+    
+    total_epoch = 200
+    lr = 1e-3
+    
+    
+    if model_type == 'baseline':
+        model = baseline_model()
+    elif model_type == 'RTFM':
+        model = rtfm_model(use_mst=True)
+    else:
+        raise Exception('No model called {}'.format(model_type))
+    
+    # model.load_state_dict(torch.load('models/bl_pretrain.pth'))
+    
+    model = model.cuda()
+    
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    
+    
+    best_res, best_model = train(model, optimizer, train_dataloader, val_dataloader, total_epoch)
+    
+    print('Best Score', best_res['score'])
+    
+    with open(os.path.join(exp_pth, 'best_res.json'), 'w') as f:
+        json.dump(best_res, f)
+    
+    torch.save(best_model, os.path.join(exp_pth, 'best_ckpt.pth'))
 
 
-#dataset_name = 'ucf-crime'
-dataset_name = 'shanghaitech'
-assert dataset_name in ['shanghaitech', 'ucf-crime']
-
-augment_type = 0
-
-#augment_path = './exps/{}_sVAE_{}/augment'.format(dataset_name, augment_type)
-
-# Please specify your project root path
-proj_root = ''
-i3d_pth = os.path.join(proj_root, 'dataset', dataset_name, 'i3d')
-meta_pth = os.path.join(proj_root, 'dataset', dataset_name)
-
-# Specify your experiment name
-exp_name = ''
-exp_pth = os.path.join(proj_root, 'exp', exp_name)
-if not os.path.isdir(exp_pth):
-    os.mkdir(exp_pth)
-
-# Your path to the generated psuedo features
-augment_pth = os.path.join(proj_root, 'dataset', 'augment')
-
-
-
-train_dataset = Dataset_v2(i3d_pth, 
-                           meta_pth, 
-                           split='all', transform=True, augment_pth=augment_pth)
- 
-
-
-val_dataset = Dataset_v2(i3d_pth,
-                         meta_pth, 'all',
-                         '{}_ground_truth.testing.json'.format(dataset_name), 'test')
-
-
-#model_type = 'RTFM'
-model_type = 'baseline'
-assert model_type in ['baseline', 'RTFM']
-
-
-train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=0)
-val_dataloader = DataLoader(val_dataset, batch_size=1, shuffle=False)
-
-
-total_epoch = 200
-lr = 1e-3
-
-
-if model_type == 'baseline':
-    model = baseline_model()
-elif model_type == 'RTFM':
-    model = rtfm_model(use_mst=True)
-else:
-    raise Exception('No model called {}'.format(model_type))
-
-# model.load_state_dict(torch.load('models/bl_pretrain.pth'))
-
-model = model.cuda()
-
-optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-
-
-best_res, best_model = train(model, optimizer, train_dataloader, val_dataloader, total_epoch)
-
-print('Best Score', best_res['score'])
-
-with open(os.path.join(exp_pth, 'best_res.json'), 'w') as f:
-    json.dump(best_res, f)
-
-torch.save(best_model, os.path.join(exp_pth, 'best_ckpt.pth'))
+    for features in val_dataloder

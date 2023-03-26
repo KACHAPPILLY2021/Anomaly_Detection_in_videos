@@ -19,13 +19,21 @@ dataset_name = 'shanghaitech'
 # Specify path to save the generated pseudo features
 save_root = '{}/augment/'.format(dataset_name)
 
-train_dataset = Dataset_v2('./{}_i3d'.format(dataset_name), 
-                          './S3R/data/{}'.format(dataset_name), 
+# Root path of your project
+proj_root = ''
+i3d_pth = os.path.join(proj_root, 'dataset', dataset_name, 'i3d')
+meta_pth = os.path.join(proj_root, 'dataset', dataset_name)
+
+train_dataset = Dataset_v2(i3d_pth, 
+                           meta_pth, 
                            split='all', transform=False)
 
+# Total "EPOCHS" to generate the psuedo features 
 augment = 1
 
-exp_dir = 'exps/{}_sVAE_{}'.format(dataset_name, 2)
+
+exp_dir = "" # Put your saved experiment dir here
+exp_dir = os.path.join(proj_root, exp_dir)
 
 with open(os.path.join(exp_dir, 'config.json')) as f:
     config = json.load(f)
@@ -33,13 +41,14 @@ with open(os.path.join(exp_dir, 'config.json')) as f:
 
 hidden_dims = config['hidden_dims']
 latent_dim = config['latent_dim']
-#hidden_dims.reverse()
 
 sVAE = ShareDecoderVae(2048, latent_dim, hidden_dims, dropout=0.0)
 
 sVAE.load_state_dict(torch.load(os.path.join(exp_dir, 'epoch_100.pth')))
 sVAE = sVAE.cuda()
 sVAE.eval()
+
+# --------------
 
 n_cnt = 0
 a_cnt = 0
