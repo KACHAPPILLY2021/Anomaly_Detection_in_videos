@@ -216,7 +216,29 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+1. Train baseline model
 
+    ```sh
+    python main.py
+    ```
+2. Generate pseudo snippet scores using the trained baseline model
+    ```sh
+    python test.py
+    ```
+3. Train the VAE using the pseudo snippet predictions
+    ```sh
+    python train_share_vae.py
+    ```
+4. Generate pseudo features using VAE
+    ```sh
+    python generate_pseudo.py
+    ```
+5. Train baseline/RTFM with the augmentation (pseudo features)
+    ```sh
+    python main.py
+    ```
+
+    Dont forget to specify the augmentation path in the file.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
