@@ -174,6 +174,7 @@ class Dataset_v2(Dataset):
       lbl = self.video_lbls[index]
       if self.pseudo_score_dict is not None and (lbl > 0):
           score = self.pseudo_score_dict[self.video_ids[index]]
+          # You can change the threshold here
           mask = np.array(score) > 0.5
           features = features[mask]
 
