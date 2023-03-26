@@ -16,7 +16,8 @@ import json
 dataset_name = 'ucf-crime'
 dataset_name = 'shanghaitech'
 
-save_root = '{}_i3d/augment/'.format(dataset_name)
+# Specify path to save the generated pseudo features
+save_root = '{}/augment/'.format(dataset_name)
 
 train_dataset = Dataset_v2('./{}_i3d'.format(dataset_name), 
                           './S3R/data/{}'.format(dataset_name), 
