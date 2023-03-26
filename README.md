@@ -43,11 +43,10 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#data-preparation">Data Preparation</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#contributors">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#license">License</a></li>
@@ -197,26 +196,11 @@ RTFM + Multi-Task VAE | I3D | 96.85 (+0.99)
 These are the instructions to get started on the project.
 To get a local copy up and running follow these simple steps.
 
-### Prerequisites
 
 ### Data preparation
 Please follow the data preparation guide in [link](https://github.com/louisYen/S3R/)
 
-### Installation
-
-1. Make directory
-   ```sh
-  
-   ```
-2. Clone the repos
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
+### Usage
 
 1. Train baseline model
 
