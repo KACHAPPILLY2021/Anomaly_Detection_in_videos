@@ -199,6 +199,8 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
+### Data preparation
+Please follow the data preparation guide in [link](https://github.com/louisYen/S3R/)
 
 ### Installation
 
